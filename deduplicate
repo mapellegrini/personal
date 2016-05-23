@@ -41,6 +41,7 @@ def check_dupes (file_list):
 
 parser = argparse.ArgumentParser(description='Find duplicate files and delete or link them.')
 parser.add_argument('--preprint', action='store_true', help='Print all matches prior first.')
+parser.add_argument('--name', action='store_true', help='Compare files based only on the filenames (case sensitive).')
 parser.add_argument('directory', type=str, help='The directory to be processed')
 
 args = parser.parse_args()
@@ -67,7 +68,10 @@ for root, dirs, files in os.walk(args.directory):
         else:
             filename = root + "/" + f 
 
-        myhash = get_file_hash(filename)
+        if (args.names):
+          myhash = f
+        else:
+          myhash = get_file_hash(filename)
             
         if (mydict.has_key(myhash)):
             mydict[myhash].append(filename)
