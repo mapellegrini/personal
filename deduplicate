@@ -68,7 +68,7 @@ for root, dirs, files in os.walk(args.directory):
         else:
             filename = root + "/" + f 
 
-        if (args.names):
+        if (args.name):
           myhash = f
         else:
           myhash = get_file_hash(filename)
