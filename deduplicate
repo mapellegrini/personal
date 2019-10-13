@@ -43,6 +43,7 @@ def check_dupes (file_list):
 parser = argparse.ArgumentParser(description="Find duplicate files and delete or link them.")
 parser.add_argument("-p", dest="preprint", required=False, action="store_true", help="Print all matches prior first.")
 parser.add_argument("-n", dest="name",     required=False, action="store_true", help="Compare files based only on the filenames (case sensitive).")
+parser.add_argument("-s", default=True,    required=False, action="store_true", help="Ignore symlinks.")
 parser.add_argument("-i",                  required=False, default="",          help="Input pickled hashes from specified output file.")
 parser.add_argument("-o",                  required=False, default="",          help="Output pickled hashes to specified output file.")
 parser.add_argument('--autodel', type=str, required=False, action='append', default=[])
@@ -84,6 +85,14 @@ for root, dirs, files in os.walk(args.directory):
     else:
       filename = root + "/" + f 
 
+    #symlink handling
+    if (os.path.islink(filename)):
+      if (args.s == True):
+        continue 
+      if (os.path.exists(filename)): 
+        print "Error - symlink " + filename + " links to non-existant location. Ignoring it"
+        continue
+              
     if (args.name):
       myhash = f
     else:
