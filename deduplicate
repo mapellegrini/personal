@@ -107,17 +107,24 @@ if (args.o != ""):
   f = file(args.o, "w")
   pickle.dump(mydict, f)
   f.close()
-      
+
+
 if (args.preprint):
+  colcnt = 0
   for ent in mydict:
     if (len(mydict[ent]) > 1) and check_dupes(mydict[ent]) == False:
+      colcnt += 1 
       print "Preprinting collision:"        
       for a in range (0, len(mydict[ent])):
         print a, mydict[ent][a]
       print "\n"
+  print colcnt, "collisions found" 
 
+
+colcnt = 0 
 for ent in mydict:
   if (len(mydict[ent]) > 1):
+    colcnt += 1 
     uinput = "0"
       
     #scan for autodel items 
@@ -144,7 +151,7 @@ for ent in mydict:
       #sys.exit(5)
 
 
-      print "Found collision. Which one(s) do you want to delete?"        
+      print "Collision #" + str(colcnt) + " - which one(s) do you want to delete?"        
       for a in range (0, len(mydict[ent])):
           print a, mydict[ent][a]
       print "Enter l to (hard) link them" 
