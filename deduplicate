@@ -5,6 +5,7 @@ import os
 import subprocess
 import hashlib
 import argparse
+import pickle
 
 def getstdout(command):
   proc = subprocess.Popen(command, stdout=subprocess.PIPE)
@@ -41,13 +42,20 @@ def check_dupes (file_list):
 
 parser = argparse.ArgumentParser(description="Find duplicate files and delete or link them.")
 parser.add_argument("-p", dest="preprint", required=False, action="store_true", help="Print all matches prior first.")
-parser.add_argument("-n", dest="name", required=False, action="store_true", help="Compare files based only on the filenames (case sensitive).")
+parser.add_argument("-n", dest="name",     required=False, action="store_true", help="Compare files based only on the filenames (case sensitive).")
+parser.add_argument("-i",                  required=False, default="",          help="Input pickled hashes from specified output file.")
+parser.add_argument("-o",                  required=False, default="",          help="Output pickled hashes to specified output file.")
 parser.add_argument('--autodel', type=str, required=False, action='append', default=[])
 parser.add_argument("directory", type=str, help="The directory to be processed")
 args = parser.parse_args()
 
 
-mydict = {}
+if (args.i != ""):
+  f = file(args.i, "r")
+  mydict = pickle.load(f)
+  f.close()
+else:
+  mydict = {}
 
 for a in range(0, len(args.autodel)):
   if (args.autodel[a].startswith("./")):
@@ -86,7 +94,11 @@ for root, dirs, files in os.walk(args.directory):
     else:
       mydict[myhash] = [filename]
 
-
+if (args.o != ""):
+  f = file(args.o, "w")
+  pickle.dump(mydict, f)
+  f.close()
+      
 if (args.preprint):
   for ent in mydict:
     if (len(mydict[ent]) > 1) and check_dupes(mydict[ent]) == False:
