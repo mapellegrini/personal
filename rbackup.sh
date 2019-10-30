@@ -2,10 +2,12 @@
 
 #personal settings 
 sourcehost="picard"
-sourcedirs="/mnt/data/bin /mnt/data/career/"
+#sourcedirs="/mnt/data/ /mnt/data2/"  #actual mounts to be enabled later 
+sourcedirs="/mnt/data/bin /mnt/data/career/job_search" #temporary test mounts:
 targethost="troi"
 targetmount="/mnt/externalusb" 
-targetdir=$targetmount"/backup/picard/daily"
+#targetdir=$targetmount"/daily/picard/"
+targetdir=$targetmount"/onetime/picard/"
 log="/tmp/rbackup.log" 
 
 uname=$(whoami)
@@ -16,12 +18,12 @@ myextip=$($scriptpath)
 if [ $hname == $sourcehost ] ; then
     tmounts=$(ssh $targethost cat "/proc/mounts")
     if echo $tmounts | grep -qs $targetmount ; then
-	echo "Source side backup initated" $(date)>> $log 
+	echo "Source side backup initated to @" $targethost ":" $targetdir $(date)>> $log 2>&1
 	for sourcedir in $sourcedirs; do
-	    echo "Backing up:" $sourcedir $(date) >> $log; 	
-	    ssh $targethost "echo $myextip > /tmp/$sourcehost" >> $log 2>&1
-	    #rsync --archive --delete $sourcedir $uname@$targethost:$targetdir >> $log 2>&1
+	    echo "Backing up:" $sourcedir $(date) >> $log; 2>&1	
+	    rsync --archive --delete $sourcedir $uname@$targethost:$targetdir >> $log 2>&1
 	done
+	ssh $targethost "echo $myextip > /tmp/$sourcehost" >> $log 2>&1	
 	echo "Source side backup complete" $(date) >> $log
     else
 	echo FALSE;
