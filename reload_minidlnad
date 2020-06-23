@@ -1,0 +1,5 @@
+#!/bin/bash
+
+sudo /etc/init.d/minidlna stop
+sudo minidlnad -R 
+sudo /etc/init.d/minidlna start
