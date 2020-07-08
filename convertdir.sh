@@ -38,6 +38,7 @@ if [ $targetdir == $randomstr ]; then
 fi
 
 
+#avi files
 for f in $sourcedir/*.avi
 do
     name=$(basename "$f" ".avi")
@@ -54,7 +55,26 @@ do
     ffmpeg -i "$f" -c:v copy -c:a copy -y "$target/$name.mp4"
 
     #alternative:
-    #ffmpeg -i "$f" -strict -2 "$target/$name.mp4"
-    
+    #ffmpeg -i "$f" -strict -2 "$target/$name.mp4"    
 done
-	    
+
+
+for f in $sourcedir/*.iso
+do
+    name=$(basename "$f" ".iso")
+    dir=$(dirname "$f")
+    base=$(basename $dir)
+    target=$targetdir/$base
+
+    #replace spaces with underscores
+    target=$(sed 's/ /_/g' <<< "$target")
+    name=$(sed 's/ /_/g' <<< "$name")
+
+    echo "Converting" $f "to" "$target/$name.mp4"
+    mkdir $target
+    HandBrakeCLI -Z "High Profile" -i "$f" -o "$target/$name.mp4"
+done
+
+
+    
+    
