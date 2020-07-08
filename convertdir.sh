@@ -38,7 +38,7 @@ if [ $targetdir == $randomstr ]; then
 fi
 
 
-for f in $sourcedir/*/*.avi
+for f in $sourcedir/*.avi
 do
     name=$(basename "$f" ".avi")
     dir=$(dirname "$f")
@@ -52,5 +52,9 @@ do
     echo "Converting" $f "to" "$target/$name.mp4"
     mkdir $target
     ffmpeg -i "$f" -c:v copy -c:a copy -y "$target/$name.mp4"
+
+    #alternative:
+    #ffmpeg -i "$f" -strict -2 "$target/$name.mp4"
+    
 done
 	    
