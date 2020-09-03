@@ -52,7 +52,7 @@ do
 
     echo "Converting" $f "to" "$target/$name.mp4"
     mkdir $target
-    ffmpeg -i "$f" -c:v copy -c:a copy -y "$target/$name.mp4"
+    ffmpeg -i "$f" -c:v mpeg4 -c:a copy -y "$target/$name.mp4"
 
     #alternative:
     #ffmpeg -i "$f" -strict -2 "$target/$name.mp4"    
