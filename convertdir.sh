@@ -62,7 +62,6 @@ do
     target=$(sed 's/ /_/g' <<< "$target")
 
     echo "Converting" $f "to" "$target.mp4"
-    mkdir $target
     ffmpeg -i "$f" -c:v mpeg4 -c:a copy -y "$target.mp4"
 
     #alternative:
