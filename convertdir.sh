@@ -37,20 +37,33 @@ if [ $targetdir == $randomstr ]; then
     exit 2
 fi
 
-for f in $sourcedir/*.divx $sourcedir/*.mpg $sourcedir/*.avi $sourcedir/*.wmv
+#remove trailing slashes
+targetdir=${targetdir%/}
+sourcedir=${sourcedir%/}
+
+#echo "Sourcedir = " $sourcedir
+#echo "Targetdir = " $targetdir
+
+for f in $sourcedir/*
 do
-    name=$(basename "$f" ".avi")
-    dir=$(dirname "$f")
-    base=$(basename $dir)
-    target=$targetdir/$base
+    base=$(basename "${f%.*}")
+    extension="${f##*.}"    
+    if [[ $extension != "avi"  ]] &&
+       [[ $extension != "divx" ]] &&
+       [[ $extension != "wmv"  ]] &&
+       [[ $extension != "mpg"  ]]; then
+	continue
+    fi
+    #echo "base=" $base
+    #echo "extension=" $extension
     
+    target=$targetdir/$base    
     #replace spaces with underscores
     target=$(sed 's/ /_/g' <<< "$target")
-    name=$(sed 's/ /_/g' <<< "$name")
 
-    echo "Converting" $f "to" "$target/$name.mp4"
+    echo "Converting" $f "to" "$target.mp4"
     mkdir $target
-    ffmpeg -i "$f" -c:v mpeg4 -c:a copy -y "$target/$name.mp4"
+    ffmpeg -i "$f" -c:v mpeg4 -c:a copy -y "$target.mp4"
 
     #alternative:
     #ffmpeg -i "$f" -strict -2 "$target/$name.mp4"    
@@ -59,9 +72,13 @@ done
 
 for f in $sourcedir/*.iso
 do
-    name=$(basename "$f" ".iso")
+    base=basename "${f%.*}"
+    extension="${f##*.}"    
+    if [[ $extension != "iso"  ]]; then
+	continue
+    fi
+    
     dir=$(dirname "$f")
-    base=$(basename $dir)
     target=$targetdir/$base
 
     #replace spaces with underscores
