@@ -69,9 +69,9 @@ do
 done
 
 
-for f in $sourcedir/*.iso
+for f in $sourcedir/*
 do
-    base=basename "${f%.*}"
+    base=$(basename "${f%.*}")
     extension="${f##*.}"    
     if [[ $extension != "iso"  ]]; then
 	continue
