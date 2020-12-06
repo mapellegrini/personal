@@ -1,9 +1,9 @@
 #!/bin/bash
 
 display_usage() {
-  echo "Usage: convertdir.sh [-h] -i <inputdir> -i <outputdir>"
+  echo "Usage: convertdir.sh [-h] -i <inputdir> -o <outputdir>"
   echo ""
-  echo "Uses ffmpeg to convert a directory of avi files to mp4 files"
+  echo "Uses ffmpeg to convert a directory of avi/mpg/divx files to mp4 files"
 }
 
 randomstr="ljljlksdjljwljleii3kd"
@@ -39,7 +39,7 @@ fi
 
 
 #avi files
-for f in $sourcedir/*.avi
+for f in $sourcedir/*.divx $sourcedir/*.mpg $sourcedir/*.avi
 do
     name=$(basename "$f" ".avi")
     dir=$(dirname "$f")
