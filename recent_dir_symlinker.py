@@ -3,13 +3,23 @@
 import argparse
 import os
 import collections
+import shutil
 from datetime import datetime, timedelta
 
-parser = argparse.ArgumentParser(description="Prints either the N newest files (new mode), or those created in the last N days (recent mode)")
-parser.add_argument('-m', required=True, choices=['new', 'recent'], help='Run in new/recent mode')
-parser.add_argument("-n", required=True, type=int, help="Number of directories to print")
-parser.add_argument("-d", required=True, nargs='+', help="Directories to parse")
-parser.add_argument("-s", required=False, default="", help="Create symlinks in this directory")
+parser = argparse.ArgumentParser(description='Prints either the N newest '
+                                 'files (new mode), or those created in the '
+                                 'last N days (recent mode)')
+parser.add_argument('-m', required=True, choices=['new', 'recent'],
+                    help='Run in new/recent mode')
+parser.add_argument('-n', required=True, type=int,
+                    help='Number of directories to print')
+parser.add_argument('-d', required=True, nargs='+',
+                    help='Directories to parse')
+parser.add_argument('-s', required=False, default='',
+                    help='Create links in this directory')
+parser.add_argument('-l', required=False, action='store_true', default=False,
+                    help='Create hard links rather than symlinks')
+
 args = parser.parse_args()
 
 dateformat='%Y_%m_%d_%H_%M_%S'
@@ -61,6 +71,30 @@ def get_changed_dirs(d):
             res.append(cdir)
     return res
 
+
+def make_hardlinks(sourcedir, targetdir):
+    if not sourcedir.endswith("/"):
+        sourcedir += "/"
+    if not targetdir.endswith("/"):
+        targetdir += "/"
+    
+    files = next(os.walk(targetdir))[2]
+
+
+    for filename in files:
+        target_path = targetdir + filename
+        source_path = sourcedir + filename
+
+        print("files = ", files)
+        print("sourcedir = ", sourcedir)
+        print("targetdir = ", targetdir)
+        print("source_path = ", source_path)
+        print("target_path = ", target_path)
+
+        
+        os.link(target_path, source_path)
+    
+    
 for d in args.d:
     changed_dirs = get_changed_dirs(d)
     if args.s:
@@ -69,7 +103,13 @@ for d in args.d:
         for d in changed_dirs:
             filename = os.path.basename(d)
             sourcename = args.s + filename
-            print("Creating symlink:", d, "<---", sourcename)            
-            os.symlink(d, sourcename)
+
+            if args.l:
+                print("Creating hardlink:", d, "<---", sourcename)
+                shutil.copytree(d, sourcename, copy_function=os.link)
+                
+            else:
+                print("Creating symlink:", d, "<---", sourcename)
+                os.symlink(d, sourcename)
 
 
