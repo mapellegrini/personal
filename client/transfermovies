@@ -1,0 +1,53 @@
+#!/bin/bash
+
+display_usage() {
+  echo "Usage: transfermovies [-h][-k][-s <string>]"
+  echo ""
+  echo "Demonstrates how to do argument parsing in bash using getopts"
+  echo ""
+  echo "-k, --help        Target the kids directory"
+  echo "-s, --help        Source directory. If none is given, will use the current working directory"
+}
+
+while getopts "hks:" opt; do #variables that take an argument are followed by a colon 
+  case ${opt} in
+    h | \? | help )
+      display_usage; 
+      exit 0 
+      ;;
+    k )
+      kids=1
+      ;;
+    s )
+      svar=$OPTARG
+      ;;
+    esac
+done
+
+if [ -z $svar ]; then
+    dir="."
+else
+    dir=$svar
+fi
+
+
+
+if [ -z $kids ]; then
+    tdir="mark@picard:/mnt/data2/movie"
+else
+    tdir="mark@picard:/mnt/data2/kids"
+fi
+
+
+
+echo "Processing directory" $dir
+for x in {A..Z}; do
+    files=$(ls $dir/$x* 2>/dev/null)
+    if [ -z "${files// }" ]; then
+	continue
+    fi
+    #echo $dir/$x* " " $tdir/$x
+    scp -r $dir/$x* $tdir/$x
+done
+
+

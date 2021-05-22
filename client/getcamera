@@ -1,0 +1,6 @@
+#!/bin/bash
+
+
+sshpass -p PASSWORD sftp -r -P 9666 mark@markphone:/Pictures/Telegram/* 
+sshpass -p PASSWORD sftp -r -P 9666 mark@markphone:/Camera/*
+sshpass -p PASSWORD sftp -r -P 9666 mark@markphone:/Download/*
