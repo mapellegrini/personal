@@ -41,6 +41,15 @@ fi
 
 
 echo "Processing directory" $dir
+for x in {0..9}; do
+    files=$(ls $dir/$x* 2>/dev/null)
+    if [ -z "${files// }" ]; then
+	continue
+    fi
+    scp -r $dir/$x* "$tdir/0-9"
+done
+
+
 for x in {A..Z}; do
     files=$(ls $dir/$x* 2>/dev/null)
     if [ -z "${files// }" ]; then
