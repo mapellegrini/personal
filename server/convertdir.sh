@@ -62,7 +62,12 @@ do
     target=$(sed 's/ /_/g' <<< "$target")
 
     echo "Converting" $f "to" "$target.mp4"
-    ffmpeg -i "$f" -c:v mpeg4 -c:a copy -y "$target.mp4"
+    ffmpeg -i "$f" -c:v mpeg4 -b:v 1500k -c:a copy -y "$target.mp4"
+
+    # how to increase encoding quality
+    #https://itectec.com/superuser/how-to-make-an-mpeg2-video-file-with-the-highest-quality-possible-using-ffmpeg/
+    # -b:v 2500k
+    # -qscale:v 2
 
     #alternative:
     #ffmpeg -i "$f" -strict -2 "$target/$name.mp4"    
