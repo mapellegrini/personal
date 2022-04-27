@@ -1,0 +1,18 @@
+#!/bin/bash
+
+
+#/mnt/backup
+mount /mnt/backup || echo "Attempted to mount /mnt/backup while it was already mounted on date following this message" >> /mnt/backup/daily/cronlog.daily
+date >> /mnt/backup/daily/cronlog.daily
+rsync --archive --delete /mnt/data /mnt/backup/daily &>> /mnt/backup/daily/cronlog.daily
+rsync --archive --delete /etc /mnt/backup/daily &>> /mnt/backup/daily/cronlog.daily
+umount /mnt/backup
+
+
+#/mnt/backup2
+mount /mnt/backup2 || echo "Attempted to mount /mnt/backup2 while it was already mounted on date following this message" >> /mnt/backup2/daily/cronlog.daily
+date >> /mnt/backup2/daily/cronlog.daily
+rsync --archive --delete /mnt/data2 /mnt/backup2/daily &>> /mnt/backup2/daily/cronlog.daily
+rsync --archive --delete /etc /mnt/backup2/daily &>> /mnt/backup2/daily/cronlog.daily
+umount /mnt/backup2
+

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+
+echo "Running daily linker @ " $(date) >> /var/log/dailylinker
+
+rm -rf /mnt/data2/new/*
+linker=/root/bin/recent_dir_symlinker.py
+
+for x in /mnt/data2/documentaries/*; do
+    $linker -m recent -n 15 -d $x /mnt/data2/new/ -l
+done
+
+for x in {A..Z}; do
+    $linker -m recent -n 15 -d /mnt/data2/movie/$x -s /mnt/data2/new/ -l
+    $linker -m recent -n 15 -d /mnt/data2/kids/$x -s /mnt/data2/new/ -l
+    $linker -m recent -n 15 -d /mnt/data2/tv/$x -s /mnt/data2/new/ -l
+done
