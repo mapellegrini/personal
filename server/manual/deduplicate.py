@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+from __future__ import print_function
 import sys
 import os
 import subprocess
@@ -18,7 +19,7 @@ def getmd5(file):
 
 
 def get_file_hash(path):
-    f = file(path, "rb")
+    f = open(path, "rb")
     h = hashlib.sha256()
     data = f.read(h.block_size)
     while data:
@@ -28,13 +29,14 @@ def get_file_hash(path):
     return h.digest()
 
 def check_dupes (file_list):
-#takes a list of files with length >= 2 
-#returns true if they all hard link to the same inode
-#returns false otherwise 
+  """
+  takes a list of files with length >= 2 
+  returns true if they all hard link to the same inode
+  returns false otherwise
+  """
+
   inode = os.stat(file_list[0]).st_ino
   for a in range (1, len(file_list)):
-    #print inode
-    #print os.stat(mydict[ent][a]).st_ino
     if (inode != os.stat(file_list[a]).st_ino):
       return False
   return True 
@@ -63,7 +65,7 @@ for a in range(0, len(args.autodel)):
     wd = os.getcwd()
     args.autodel[a] = wd + "/" + args.autodel[a][2:]
   if (os.path.isdir(args.autodel[a])==False):
-    print "ERROR - automatically deletable directory is not a directory or does not exist:", args.autodel[a] 
+    print ("ERROR - automatically deletable directory is not a directory or does not exist:", args.autodel[a]) 
     sys.exit(1)  
 
 
@@ -79,7 +81,8 @@ for root, dirs, files in os.walk(args.directory):
   for f in files:
     cnt += 1
     if (cnt % 500 == 0):
-      print "Now hashing file #", cnt, " out of ", total, "(", round(100*float(cnt)/total, 2), "%)"
+      print("Now hashing file #", cnt, " out of ", total, "(",
+            round(100*float(cnt)/total, 2), "%)")
     if (root.endswith("/")):
       filename = root + f
     else:
@@ -90,7 +93,8 @@ for root, dirs, files in os.walk(args.directory):
       if (args.s == True):
         continue 
       if (os.path.exists(filename)): 
-        print "Error - symlink " + filename + " links to non-existant location. Ignoring it"
+        print("Error - symlink " + filename + \
+              " links to non-existant location. Ignoring it")
         continue
               
     if (args.name):
@@ -98,7 +102,7 @@ for root, dirs, files in os.walk(args.directory):
     else:
       myhash = get_file_hash(filename)
             
-    if (mydict.has_key(myhash)):
+    if myhash in mydict:
       mydict[myhash].append(filename)
     else:
       mydict[myhash] = [filename]
@@ -114,11 +118,11 @@ if (args.preprint):
   for ent in mydict:
     if (len(mydict[ent]) > 1) and check_dupes(mydict[ent]) == False:
       colcnt += 1 
-      print "Preprinting collision:"        
+      print("Preprinting collision:")
       for a in range (0, len(mydict[ent])):
-        print a, mydict[ent][a]
-      print "\n"
-  print colcnt, "collisions found" 
+        print(a, mydict[ent][a])
+      print("\n")
+  print(colcnt, "collisions found")
 
 
 colcnt = 0 
@@ -140,7 +144,7 @@ for ent in mydict:
             base = os.getcwd() + "/"
           #print a, base+mydict[ent][a], autodir
           if ((base+mydict[ent][a]).startswith(autodir)):
-            print "Deleting autodel dupe", base+mydict[ent][a]
+            print("Deleting autodel dupe", base+mydict[ent][a])
             changed=True
             os.unlink(base+mydict[ent][a])
             del mydict[ent][a]
@@ -151,13 +155,14 @@ for ent in mydict:
       #sys.exit(5)
 
 
-      print "Collision #" + str(colcnt) + " - which one(s) do you want to delete?"        
+      print("Collision #" + str(colcnt) + \
+            " - which one(s) do you want to delete?")
       for a in range (0, len(mydict[ent])):
-          print a, mydict[ent][a]
-      print "Enter l to (hard) link them" 
-      print "Enter key to keep all" 
+          print(a, mydict[ent][a])
+      print("Enter l to (hard) link them")
+      print("Enter key to keep all")
 
-      entry = raw_input("Enter your choice -> ")
+      entry = input("Enter your choice -> ")
 
       if (entry == "l"):                  
         for a in range (1, len(mydict[ent])):
@@ -169,13 +174,13 @@ for ent in mydict:
           os.link(base + mydict[ent][0], mydict[ent][a])
 
       if (entry == "l" or entry == "" or entry == "-1"):
-        print "\n"
+        print("\n")
         break
 
       try:
         uinput = int(entry)
       except ValueError:
-        print "Oops!  That was no valid number.  Try again..."
+        print("Oops!  That was no valid number.  Try again...")
         continue
 
       if (uinput >=0):
@@ -183,7 +188,7 @@ for ent in mydict:
           os.unlink(mydict[ent][uinput])
           del mydict[ent][uinput]
         else:
-          print "ERROR - invalid number"
+          print("ERROR - invalid number")
       elif (uinput != -1):
-          print "ERROR - invalid number"
+          print("ERROR - invalid number")
  
