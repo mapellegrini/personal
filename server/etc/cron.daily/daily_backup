@@ -13,6 +13,11 @@ umount /mnt/backup
 mount /mnt/backup2 || echo "Attempted to mount /mnt/backup2 while it was already mounted on date following this message" >> /mnt/backup2/daily/cronlog.daily
 date >> /mnt/backup2/daily/cronlog.daily
 rsync --archive --delete /mnt/data2 /mnt/backup2/daily &>> /mnt/backup2/daily/cronlog.daily
-rsync --archive --delete /etc /mnt/backup2/daily &>> /mnt/backup2/daily/cronlog.daily
 umount /mnt/backup2
 
+
+#/mnt/backup3
+mount /mnt/backup3 || echo "Attempted to mount /mnt/backup3 while it was already mounted on date following this message" >> /mnt/backup3/daily/cronlog.daily
+date >> /mnt/backup3/daily/cronlog.daily
+rsync --archive --delete /mnt/data3 /mnt/backup3/daily &>> /mnt/backup3/daily/cronlog.daily
+umount /mnt/backup3
