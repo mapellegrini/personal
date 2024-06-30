@@ -1,17 +1,18 @@
 #!/bin/bash
 
+DAYS=${1:-100} # takes an optional parameter, the number of days
 
 echo "Running daily linker @ " $(date) >> /var/log/dailylinker
 
 rm -rf /mnt/data2/new/*
-linker=/root/bin/recent_dir_symlinker.py
+linker=/root/personal/server/root_bin/recent_dir_linker.py
 
 for x in /mnt/data2/documentaries/*; do
-    $linker -m recent -n 15 -d $x /mnt/data2/new/ -l
+    $linker -m recent -n $DAYS -d $x /mnt/data2/new/
 done
 
 for x in {A..Z}; do
-    $linker -m recent -n 15 -d /mnt/data2/movie/$x -s /mnt/data2/new/ -l
-    $linker -m recent -n 15 -d /mnt/data2/kids/$x -s /mnt/data2/new/ -l
-    $linker -m recent -n 15 -d /mnt/data2/tv/$x -s /mnt/data2/new/ -l
+    $linker -m recent -n $DAYS -d /mnt/data3/movie/$x -s /mnt/data2/new/
+    $linker -m recent -n $DAYS -d /mnt/data2/kids/$x -s /mnt/data2/new/
+    $linker -m recent -n $DAYS -d /mnt/data2/tv/$x -s /mnt/data2/new/
 done

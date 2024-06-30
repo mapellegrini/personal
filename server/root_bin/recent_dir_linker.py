@@ -4,7 +4,8 @@ import argparse
 import os
 import collections
 import shutil
-from datetime import datetime, timedelta
+#from datetime import datetime, timedelta
+import datetime
 
 parser = argparse.ArgumentParser(description='Prints either the N newest '
                                  'files (new mode), or those created in the '
@@ -40,10 +41,11 @@ def get_date_dir_map(dirs):
     date_to_file_map = {}
     for cdir in dirs:
         unix_time = os.stat(cdir).st_mtime
-        date = datetime.utcfromtimestamp(unix_time)
+        date = datetime.datetime.fromtimestamp(unix_time, datetime.UTC)
+        #date = datetime.utcfromtimestamp(unix_time)
         datestr = date.strftime(dateformat)
         while datestr in date_to_file_map:
-            date =  date + timedelta(seconds=1)
+            date =  date + datetime.timedelta(seconds=1)
             datestr = date.strftime(dateformat)
         date_to_file_map[datestr] = cdir
     sorted_dates = sorted(date_to_file_map, reverse=True)
@@ -63,36 +65,13 @@ def get_changed_dirs(d):
         for date,cdir in list(date_dir_map.items())[0:args.n]:            
             res.append(cdir)
     if args.m == "recent":
-        days_ago = datetime.now() - timedelta(days=args.n)
+        days_ago = datetime.datetime.now() - datetime.timedelta(days=args.n)
         days_ago_str = days_ago.strftime(dateformat)
         for date,cdir in date_dir_map.items():
             if days_ago_str > date:
                 break
             res.append(cdir)
     return res
-
-
-def make_hardlinks(sourcedir, targetdir):
-    if not sourcedir.endswith("/"):
-        sourcedir += "/"
-    if not targetdir.endswith("/"):
-        targetdir += "/"
-    
-    files = next(os.walk(targetdir))[2]
-
-
-    for filename in files:
-        target_path = targetdir + filename
-        source_path = sourcedir + filename
-
-        print("files = ", files)
-        print("sourcedir = ", sourcedir)
-        print("targetdir = ", targetdir)
-        print("source_path = ", source_path)
-        print("target_path = ", target_path)
-
-        
-        os.link(target_path, source_path)
     
     
 for d in args.d:
