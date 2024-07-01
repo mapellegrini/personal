@@ -1,5 +1,7 @@
 #!/bin/bash
 
+target=geordi
+
 display_usage() {
   echo "Usage: transfermovies [-h][-k][-s <string>]"
   echo ""
@@ -43,24 +45,22 @@ else
 fi
 
 
-
-if [ -z $movie ]; then
-    tdir="mark@picard:/mnt/data3/movie"
-elif [ -z $kids ]; then
-    tdir="mark@picard:/mnt/data2/kids"
-elif [ -z $tv ]; then
-    tdir="mark@picard:/mnt/data2/tv"
-elif [ -z $docs]; then
-    tdir="mark@picard:/mnt/data2/documentaries"
+if [ -v movie ]; then
+    tdir="mark@$target:/mnt/data3/movie"
+elif [ -v kids ]; then
+    tdir="mark@$target:/mnt/data2/kids"
+elif [ -v tv ]; then
+    tdir="mark@$target:/mnt/data2/tv"
+elif [ -v docs ]; then
+    tdir="mark@$target:/mnt/data2/documentaries"
 else  # default to movie
     movie=1
-    tdir="mark@picard:/mnt/data3/movie"
+    tdir="mark@$target:/mnt/data3/movie"
 fi
 
 
-
 # Special non-alphabetical handling for documentaries
-if [ -z $docs]; then
+if [ -v docs ]; then
     for doctype in arts business_economics cspan food games health_medicine history nature other politics religion_mythology science_engineering_math sports technology true_crime
     do
         if [ -z $dir/$doctype ]; then
@@ -87,5 +87,5 @@ else
 	#echo $dir/$x* " " $tdir/$x
 	scp -r $dir/$x* $tdir/$x
     done
-
+fi
 
