@@ -1,0 +1,6 @@
+#!/bin/bash
+
+
+/root/bin/article_renamer.py -d /mnt/data3/movie
+/root/bin/article_renamer.py -d /mnt/data2/tv
+
