@@ -30,7 +30,7 @@ def parsedir(directory, args, level):
             else:
                 first_letter = first_letter.upper()
             new_full_path = os.path.join(
-                parent_dir, first_letter, new_name)
+                this_dir_path, first_letter, new_name)
             if args.print:
                 print(f'Would move {old_full_path} to {new_full_path}')
             else:
@@ -58,6 +58,7 @@ directories = args.directories.split(',')
 
 for article in articles:
     for directory in directories:
+        this_dir_path = os.path.abspath(directory)
         parent_dir = Path(directory).parent.absolute()
         path = os.path.join(parent_dir, directory)
         parsedir(path, args, args.recursion)

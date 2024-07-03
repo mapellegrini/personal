@@ -1,6 +1,7 @@
 #!/bin/bash
 
+/root/personal/server/root_bin/article_renamer.py -d /mnt/data3/movie
+/root/personal/server/root_bin/article_renamer.py -d /mnt/data2/tv
+/root/personal/server/root_bin/article_renamer.py -d /mnt/data2/kids
 
-/root/bin/article_renamer.py -d /mnt/data3/movie
-/root/bin/article_renamer.py -d /mnt/data2/tv
 
