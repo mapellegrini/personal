@@ -3,6 +3,7 @@
 
 #data
 if mountpoint -q /mnt/data; then
+    echo "/mnt/data/"
     rsync --archive --delete mark@geordi:/mnt/data/* /mnt/data
 else
     echo "/mnt/data is not mounted"
@@ -11,6 +12,7 @@ fi
 
 #data2
 if mountpoint -q /mnt/data2; then
+    echo "/mnt/data2/"
     rsync --archive --delete mark@geordi:/mnt/data2/* /mnt/data2
 else
     echo "/mnt/data2 is not mounted"
@@ -21,5 +23,6 @@ fi
 if mountpoint -q /mnt/data3; then
     rsync --archive --delete mark@geordi:/mnt/data3/* /mnt/data3
 else
+    echo "/mnt/data3/"
     echo "/mnt/data3 is not mounted"
 fi
