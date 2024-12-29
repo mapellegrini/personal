@@ -21,8 +21,8 @@ fi
 
 #data3
 if mountpoint -q /mnt/data3; then
+    echo "/mnt/data3/"
     rsync --archive --delete mark@geordi:/mnt/data3/* /mnt/data3
 else
-    echo "/mnt/data3/"
     echo "/mnt/data3 is not mounted"
 fi
