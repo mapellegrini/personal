@@ -58,14 +58,13 @@ else  # default to movie
     tdir="mark@$target:/mnt/data3/movie"
 fi
 
-
 # Special non-alphabetical handling for documentaries
 if [ -v docs ]; then
     for doctype in arts business_economics cspan food games health_medicine history nature other politics religion_mythology science_engineering_math sports technology true_crime
     do
         if [ -z $dir/$doctype ]; then
 	    echo "Processing directory" $dir/$doctype
-	    scp -r $dir/$doctype/* "$tdir/$doctype"
+	    rsync -azP $dir/$doctype/* "$tdir/$doctype"
         fi
     done
 else
@@ -75,7 +74,8 @@ else
 	if [ -z "${files// }" ]; then
 	    continue
 	fi
-	scp -r $dir/$x* "$tdir/0-9"
+	echo $dir/$x* " " $tdir/$x
+	rsync -azP $dir/$x* "$tdir/0-9"
     done
 
 
@@ -84,8 +84,8 @@ else
 	if [ -z "${files// }" ]; then
 	    continue
 	fi
-	#echo $dir/$x* " " $tdir/$x
-	scp -r $dir/$x* $tdir/$x
+	echo $dir/$x* " " $tdir/$x
+	rsync -azP $dir/$x* $tdir/$x
     done
 fi
 
