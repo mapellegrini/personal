@@ -1,0 +1,15 @@
+sudo umount /dev/mapper/data /mnt/data
+sudo umount /dev/mapper/data2 /mnt/data2
+sudo umount /dev/mapper/data3 /mnt/data3
+sudo umount /dev/mapper/backup /mnt/backup
+sudo umount /dev/mapper/backup2 /mnt/backup2
+sudo umount /dev/mapper/backup3 /mnt/backup3
+
+
+sudo cryptsetup close data
+sudo cryptsetup close data2
+sudo cryptsetup close data3
+
+sudo cryptsetup close backup
+sudo cryptsetup close backup2
+sudo cryptsetup close backup3
