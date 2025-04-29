@@ -1,0 +1,17 @@
+#!/bin/bash
+
+
+sudo cryptsetup open /dev/disk/by-uuid/6a1c2e1a-c98f-43db-8ee0-05f1a54f0842 data
+sudo cryptsetup open /dev/disk/by-uuid/41c75198-029f-4ab0-9a9e-e0aed109ff10 data2
+sudo cryptsetup open /dev/disk/by-uuid/b6ed5541-e564-40d1-a965-c10de7cb2b5a data3
+sudo cryptsetup open /dev/disk/by-uuid/d2911807-4ccd-4393-8b01-1636b6e1d754 backup
+sudo cryptsetup open /dev/disk/by-uuid/097ad148-4c18-471e-931a-e82d4815f882 backup2
+sudo cryptsetup open /dev/disk/by-uuid/a0a1154b-5cad-4ff1-aed5-62978400b4f2 backup3
+
+
+sudo mount /dev/mapper/data /mnt/data
+sudo mount /dev/mapper/data2 /mnt/data2
+sudo mount /dev/mapper/data3 /mnt/data3
+sudo mount /dev/mapper/backup /mnt/backup
+sudo mount /dev/mapper/backup2 /mnt/backup2
+sudo mount /dev/mapper/backup3 /mnt/backup3

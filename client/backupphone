@@ -1,0 +1,14 @@
+#!/bin/bash
+
+
+today=$(date --iso-8601)
+target_mountpoint=/mnt/backup
+target_dir=$target_mountpoint/onetime/phone/$today/
+
+
+sudo mount target_mountpoint
+mkdir target_dir
+
+sshpass -p PASSWORD sftp -r -P 9666 mark@markphone:Funny $target_dir
+sshpass -p PASSWORD sftp -r -P 9666 mark@markphone:P $target_dir
+sshpass -p PASSWORD sftp -r -P 9666 mark@markphone:Experiences $target_dir

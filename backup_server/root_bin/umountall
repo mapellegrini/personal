@@ -1,0 +1,9 @@
+#!/bin/bash
+
+sudo umount /dev/mapper/data /mnt/data
+sudo umount /dev/mapper/data2 /mnt/data2
+sudo umount /dev/mapper/data3 /mnt/data3
+
+sudo cryptsetup close data
+sudo cryptsetup close data2
+sudo cryptsetup close data3

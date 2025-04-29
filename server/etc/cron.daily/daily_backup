@@ -3,31 +3,28 @@
 
 #/mnt/backup
 if mountpoint -q /mnt/data; then
-    mount /mnt/backup || echo "Attempted to mount /mnt/backup while it was already mounted on date following this message" >> /mnt/backup/daily/cronlog.daily
+    echo "Archiving /mnt/data"
     date >> /mnt/backup/daily/cronlog.daily
     rsync --archive --delete /mnt/data /mnt/backup/daily &>> /mnt/backup/daily/cronlog.daily
     rsync --archive --delete /etc /mnt/backup/daily &>> /mnt/backup/daily/cronlog.daily
-    umount /mnt/backup
 else
     echo "/mnt/data is not mounted"
 fi
 
 #/mnt/backup2
 if mountpoint -q /mnt/data2; then
-    mount /mnt/backup2 || echo "Attempted to mount /mnt/backup2 while it was already mounted on date following this message" >> /mnt/backup2/daily/cronlog.daily
+    echo "Archiving /mnt/data2"
     date >> /mnt/backup2/daily/cronlog.daily
     rsync --archive --delete /mnt/data2 /mnt/backup2/daily &>> /mnt/backup2/daily/cronlog.daily
-    umount /mnt/backup2
 else
     echo "/mnt/data2 is not mounted"
 fi
 
 #/mnt/backup3
 if mountpoint -q /mnt/data3; then
-    mount /mnt/backup3 || echo "Attempted to mount /mnt/backup3 while it was already mounted on date following this message" >> /mnt/backup3/daily/cronlog.daily
+    echo "Archiving /mnt/data3"
     date >> /mnt/backup3/daily/cronlog.daily
     rsync --archive --delete /mnt/data3 /mnt/backup3/daily &>> /mnt/backup3/daily/cronlog.daily
-    umount /mnt/backup3
 else
     echo "/mnt/data3 is not mounted"
 fi

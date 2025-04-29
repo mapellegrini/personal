@@ -72,10 +72,11 @@ def get_changed_dirs(d):
                 break
             res.append(cdir)
     return res
-    
-    
+
+
 for d in args.d:
     changed_dirs = get_changed_dirs(d)
+
     if args.s:
         if not args.s.endswith("/"):
             args.s += "/"
