@@ -1,0 +1,7 @@
+alias e='emacs'
+alias movie='cd /mnt/data3/movie'
+alias tv='cd /mnt/data2/tv'
+alias unsorted='cd /mnt/data2/unsorted'
+alias kids='cd /mnt/data3/kids'
+alias doc='cd /mnt/data3/documentaries'
+alias docs='cd /mnt/data3/documentaries'

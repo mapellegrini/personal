@@ -10,7 +10,10 @@ linker=/root/personal/server/root_bin/recent_dir_linker.py
 for x in /mnt/data3/documentaries/*; do
     $linker -m recent -n $DAYS -d $x -s /mnt/data2/new/
 done
+$linker -m recent -n $DAYS -d /mnt/data3/documentaries/history/* -s /mnt/data2/new/
 
+
+$linker -m recent -n $DAYS -d /mnt/data3/movie/0-9 -s /mnt/data2/new/
 for x in {A..Z}; do
     $linker -m recent -n $DAYS -d /mnt/data3/movie/$x -s /mnt/data2/new/
     $linker -m recent -n $DAYS -d /mnt/data2/kids/$x -s /mnt/data2/new/
