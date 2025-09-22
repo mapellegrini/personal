@@ -48,11 +48,11 @@ fi
 if [ -v movie ]; then
     tdir="mark@$target:/mnt/data3/movie"
 elif [ -v kids ]; then
-    tdir="mark@$target:/mnt/data2/kids"
+    tdir="mark@$target:/mnt/data3/kids"
 elif [ -v tv ]; then
     tdir="mark@$target:/mnt/data2/tv"
 elif [ -v docs ]; then
-    tdir="mark@$target:/mnt/data2/documentaries"
+    tdir="mark@$target:/mnt/data3/documentaries"
 else  # default to movie
     movie=1
     tdir="mark@$target:/mnt/data3/movie"
