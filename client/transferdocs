@@ -1,0 +1,26 @@
+#!/bin/bash
+
+target_host="mark@geordi:/mnt/data3/documentaries"
+
+target_directories=("arts" "business_economics" "cspan" "food" "games" "health_medicine" "law" "multi" "nature" "other" "politics" "religion_mythology" "science_engineering_math" "sports" "technology" "true_crime")
+
+
+
+for target_dir in "${target_directories[@]}"; do
+    #cd $target_dir
+    if [ ! -d ./$target_dir/ ]; then
+	#echo $target_dir "does not exist. Skipping"
+	continue
+    fi
+    subdirs=$(find ./$target_dir -type d | tail -n +2)
+    length=${#subdirs}
+    if [ $length -eq 0 ]; then
+        #echo $target_dir "does not contain any directories. Skipping"
+	continue
+    fi
+    
+    for sourcedir in $subdirs; do
+        echo "transferring: " $sourcedir "to " $target_host/$target_dir
+	scp -r $sourcedir $target_host/$target_dir && rm -rf $sourcedir
+    done
+done
