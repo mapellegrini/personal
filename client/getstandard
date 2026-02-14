@@ -1,0 +1,5 @@
+#!/bin/bash
+
+
+sshpass -p PASSWORD sftp -oHostKeyAlgorithms=+ssh-rsa -oStrictHostKeyChecking=no -r -P 9666 mark@markphone:/transfer ./
+

@@ -1,7 +1,9 @@
 #!/bin/bash
 
 
-sshpass -p PASSWORD sftp -oHostKeyAlgorithms=+ssh-rsa -oStrictHostKeyChecking=no -r -P 9666 mark@markphone:/Pictures/Telegram/*
-sshpass -p PASSWORD sftp -oHostKeyAlgorithms=+ssh-rsa -oStrictHostKeyChecking=no -r -P 9666 mark@markphone:/Camera/*
-sshpass -p PASSWORD sftp -oHostKeyAlgorithms=+ssh-rsa -oStrictHostKeyChecking=no -r -P 9666 mark@markphone:/Download/*
-sshpass -p PASSWORD sftp -oHostKeyAlgorithms=+ssh-rsa -oStrictHostKeyChecking=no -r -P 9666 mark@markphone:/0/Movies/Telegram/*
+mkdir transfer
+sshpass -p PASSWORD sftp -oHostKeyAlgorithms=+ssh-rsa -oStrictHostKeyChecking=no -r -P 9666 mark@markphone:/Pictures/Telegram ./transfer/
+sshpass -p PASSWORD sftp -oHostKeyAlgorithms=+ssh-rsa -oStrictHostKeyChecking=no -r -P 9666 mark@markphone:/Pictures/Messages ./transfer/
+sshpass -p PASSWORD sftp -oHostKeyAlgorithms=+ssh-rsa -oStrictHostKeyChecking=no -r -P 9666 mark@markphone:/Camera ./transfer
+sshpass -p PASSWORD sftp -oHostKeyAlgorithms=+ssh-rsa -oStrictHostKeyChecking=no -r -P 9666 mark@markphone:/Download ./transfer
+sshpass -p PASSWORD sftp -oHostKeyAlgorithms=+ssh-rsa -oStrictHostKeyChecking=no -r -P 9666 mark@markphone:/0/Movies/Telegram/ ./transfer
