@@ -48,7 +48,7 @@ fi
 if [ -v movie ]; then
     tdir="mark@$target:/mnt/data3/movie"
 elif [ -v kids ]; then
-    tdir="mark@$target:/mnt/data3/kids"
+    tdir="mark@$target:/mnt/data3/kids/movie"
 elif [ -v tv ]; then
     tdir="mark@$target:/mnt/data2/tv"
 elif [ -v docs ]; then
@@ -74,8 +74,13 @@ else
 	if [ -z "${files// }" ]; then
 	    continue
 	fi
-	echo $dir/$x* " " $tdir/$x
-	rsync -azP $dir/$x* "$tdir/0-9"
+	if [ -v movie ]; then
+	    target="$tdir/0-9"
+	else
+	    target=$tdir
+	fi
+	echo $dir/$x* " " $target
+	rsync -azP $dir/$x* $target
     done
 
 
@@ -84,8 +89,13 @@ else
 	if [ -z "${files// }" ]; then
 	    continue
 	fi
-	echo $dir/$x* " " $tdir/$x
-	rsync -azP $dir/$x* $tdir/$x
+	if [ -v movie ]; then
+	    target="$tdir/0-9"
+	else
+	    target=$tdir
+	fi
+	echo $dir/$x* " " $target
+	rsync -azP $dir/$x* $target
     done
 fi
 
