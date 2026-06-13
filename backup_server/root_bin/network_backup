@@ -4,16 +4,21 @@
 #data
 if mountpoint -q /mnt/data; then
     echo "/mnt/data/"
-    rsync --archive --delete mark@geordi:/mnt/data/* /mnt/data
+    rsync -v --archive --delete mark@geordi:/mnt/data/* /mnt/data
 else
     echo "/mnt/data is not mounted"
 fi
 
 
+#onetime
+echo "/mnt/backup/ontime"
+rsync -v --archive --delete mark@geordi:/mnt/backup/onetime/* /onetime
+
+
 #data2
 if mountpoint -q /mnt/data2; then
     echo "/mnt/data2/"
-    rsync --archive --delete mark@geordi:/mnt/data2/* /mnt/data2
+    rsync -v --archive --delete mark@geordi:/mnt/data2/* /mnt/data2
 else
     echo "/mnt/data2 is not mounted"
 fi
@@ -22,7 +27,7 @@ fi
 #data3
 if mountpoint -q /mnt/data3; then
     echo "/mnt/data3/"
-    rsync --archive --delete mark@geordi:/mnt/data3/* /mnt/data3
+    rsync -v --archive --delete mark@geordi:/mnt/data3/* /mnt/data3
 else
     echo "/mnt/data3 is not mounted"
 fi
