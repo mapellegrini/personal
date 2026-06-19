@@ -90,7 +90,7 @@ else
 	    continue
 	fi
 	if [ -v movie ]; then
-	    target="$tdir/0-9"
+	    target="$tdir/$x"
 	else
 	    target=$tdir
 	fi
