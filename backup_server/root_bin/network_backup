@@ -1,5 +1,6 @@
 #!/bin/bash
 
+start_time=$(date +%s)
 
 #data
 if mountpoint -q /mnt/data; then
@@ -31,3 +32,6 @@ if mountpoint -q /mnt/data3; then
 else
     echo "/mnt/data3 is not mounted"
 fi
+
+elapsed=$(( $(date +%s) - start_time ))
+echo "Time to backup: ${elapsed} seconds"
