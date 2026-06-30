@@ -10,5 +10,5 @@ ff02::2 ip6-allrouters
 192.168.1.38	geordi
 192.168.1.40	picard
 192.168.1.41	printer
-192.168.1.62	markphone
-192.168.1.63	gwenphone
+192.168.1.36	markphone
+192.168.1.37	gwenphone
