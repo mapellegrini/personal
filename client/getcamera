@@ -1,9 +1,16 @@
 #!/bin/bash
 
+PASSWORD=""
 
-mkdir transfer
-sshpass -p PASSWORD sftp -oHostKeyAlgorithms=+ssh-rsa -oStrictHostKeyChecking=no -r -P 9666 mark@markphone:/Pictures/Telegram ./transfer/
-sshpass -p PASSWORD sftp -oHostKeyAlgorithms=+ssh-rsa -oStrictHostKeyChecking=no -r -P 9666 mark@markphone:/Pictures/Messages ./transfer/
-sshpass -p PASSWORD sftp -oHostKeyAlgorithms=+ssh-rsa -oStrictHostKeyChecking=no -r -P 9666 mark@markphone:/Camera ./transfer
-sshpass -p PASSWORD sftp -oHostKeyAlgorithms=+ssh-rsa -oStrictHostKeyChecking=no -r -P 9666 mark@markphone:/Download ./transfer
-sshpass -p PASSWORD sftp -oHostKeyAlgorithms=+ssh-rsa -oStrictHostKeyChecking=no -r -P 9666 mark@markphone:/0/Movies/Telegram/ ./transfer
+mkdir -p transfer
+mkdir -p transfer/telegram
+mkdir -p transfer/messages
+mkdir -p transfer/camera
+mkdir -p transfer/download
+mkdir -p transfer/movies
+
+sshpass -p $PASSWORD sftp -oHostKeyAlgorithms=+ssh-rsa -oStrictHostKeyChecking=no -r -P 9666 mark@markphone:/Pictures/Telegram ./transfer/telegram
+sshpass -p $PASSWORD sftp -oHostKeyAlgorithms=+ssh-rsa -oStrictHostKeyChecking=no -r -P 9666 mark@markphone:/Pictures/Messages ./transfer/messages
+sshpass -p $PASSWORD sftp -oHostKeyAlgorithms=+ssh-rsa -oStrictHostKeyChecking=no -r -P 9666 mark@markphone:/Camera ./transfer/camera
+sshpass -p $PASSWORD sftp -oHostKeyAlgorithms=+ssh-rsa -oStrictHostKeyChecking=no -r -P 9666 mark@markphone:/Download ./transfer/download
+sshpass -p $PASSWORD sftp -oHostKeyAlgorithms=+ssh-rsa -oStrictHostKeyChecking=no -r -P 9666 mark@markphone:/0/Movies/Telegram/ ./transfer/movies
