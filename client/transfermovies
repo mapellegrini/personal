@@ -64,7 +64,7 @@ if [ -v docs ]; then
     do
         if [ -z $dir/$doctype ]; then
 	    echo "Processing directory" $dir/$doctype
-	    rsync -azP $dir/$doctype/* "$tdir/$doctype"
+	    rsync -azP --chmod=D755,F644 $dir/$doctype/* "$tdir/$doctype"
         fi
     done
 else
@@ -80,7 +80,7 @@ else
 	    target=$tdir
 	fi
 	echo $dir/$x* " " $target
-	rsync -azP $dir/$x* $target
+	rsync -azP --chmod=D755,F644 $dir/$x* $target
     done
 
 
@@ -95,7 +95,7 @@ else
 	    target=$tdir
 	fi
 	echo $dir/$x* " " $target
-	rsync -azP $dir/$x* $target
+	rsync -azP --chmod=D755,F644 $dir/$x* $target
     done
 fi
 
