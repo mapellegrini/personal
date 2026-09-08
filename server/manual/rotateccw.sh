@@ -25,7 +25,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
-ffmpeg -i "$file" -vf "transpose=2" -c:a copy "$tmp"
+ffmpeg -y -i "$file" -vf "transpose=2" -c:a copy "$tmp"
 
 mv -- "$tmp" "$file"
 chmod 644 -- "$file"
