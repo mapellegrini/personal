@@ -6,6 +6,7 @@ if mountpoint -q /mnt/data; then
     echo "Archiving /mnt/data"
     date >> /mnt/backup/daily/cronlog.daily
     rsync --archive --delete /mnt/data /mnt/backup/daily &>> /mnt/backup/daily/cronlog.daily
+    echo "Archiving configuration files"
     rsync --archive --delete /etc /mnt/backup/daily &>> /mnt/backup/daily/cronlog.daily
 else
     echo "/mnt/data is not mounted"

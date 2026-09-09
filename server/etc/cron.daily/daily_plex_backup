@@ -1,0 +1,61 @@
+#!/bin/bash
+
+set -euo pipefail
+
+PLEX_DIR="/var/lib/plexmediaserver/Library/Application Support/Plex Media Server"
+BACKUP_DIR="/mnt/backup/daily/plex"
+DB_DIR="$PLEX_DIR/Plug-in Support/Databases"
+BACKUP_DB_DIR="$BACKUP_DIR/Plug-in Support/Databases"
+LOG="/var/log/plex-backup.log"
+
+exec >>"$LOG" 2>&1
+
+# Don't accidentally write the backup to the root filesystem if
+# /mnt/backup isn't actually mounted.
+if ! mountpoint -q /mnt/backup; then
+    echo "ERROR: /mnt/backup is not mounted"
+    exit 1
+fi
+
+echo "Plex backup started: $(date)" >> /mnt/backup/daily/cronlog.daily
+
+mkdir -p "$BACKUP_DIR" &>> /mnt/backup/daily/cronlog.daily
+mkdir -p "$BACKUP_DB_DIR" &>> /mnt/backup/daily/cronlog.daily
+
+#
+# First sync the Plex data, excluding things that don't need backing up
+# and excluding the live SQLite databases.
+#
+rsync -a --delete \
+    --exclude='/Cache/' \
+    --exclude='/Logs/' \
+    --exclude='/Crash Reports/' \
+    --exclude='/Updates/' \
+    --exclude='/Plug-in Support/Databases/*.db' \
+    --exclude='/Plug-in Support/Databases/*.db-shm' \
+    --exclude='/Plug-in Support/Databases/*.db-wal' \
+    "$PLEX_DIR/" \
+    "$BACKUP_DIR/" &>> /mnt/backup3/daily/cronlog.daily
+
+#
+# Make transactionally consistent SQLite backups while Plex is running.
+#
+for DB in \
+    "com.plexapp.plugins.library.db" \
+    "com.plexapp.plugins.library.blobs.db"
+do
+    if [[ -f "$DB_DIR/$DB" ]]; then
+        echo "Backing up database: $DB" &>> /mnt/backup/daily/cronlog.daily
+
+        TEMP="$BACKUP_DB_DIR/$DB.tmp"
+
+        rm -f "$TEMP"
+
+        sqlite3 "$DB_DIR/$DB" \
+            ".backup '$TEMP'" &>> /mnt/backup/daily/cronlog.daily
+
+        mv -f "$TEMP" "$BACKUP_DB_DIR/$DB" &>> /mnt/backup/daily/cronlog.daily
+    fi
+done
+
+echo "Plex backup completed: $(date)" &>> /mnt/backup/daily/cronlog.daily
