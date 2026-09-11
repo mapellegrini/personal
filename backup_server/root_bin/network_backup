@@ -33,5 +33,14 @@ else
     echo "/mnt/data3 is not mounted"
 fi
 
+
+#data4
+if mountpoint -q /mnt/data4; then
+    echo "/mnt/data4/"
+    rsync -aHAXxv --delete --partial --info=progress2 -e "ssh -o Compression=no" mark@geordi:/mnt/data4/ /mnt/data4/
+else
+    echo "/mnt/data4 is not mounted"
+fi
+
 elapsed=$(( $(date +%s) - start_time ))
 echo "Time to backup: ${elapsed} seconds"
