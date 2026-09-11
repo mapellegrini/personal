@@ -3,7 +3,9 @@
 sudo cryptsetup open /dev/disk/by-uuid/49eb6f62-bab6-4883-a692-bc68979f018c data
 sudo cryptsetup open /dev/disk/by-uuid/4a6ab308-cd99-4ace-ab3e-0117b13d96f6 data2
 sudo cryptsetup open /dev/disk/by-uuid/b25faaaa-ef53-4ccd-9ddb-30cdccdfddb8 data3
+sudo cryptsetup open /dev/disk/by-uuid/e70af95c-c1a9-4b0c-878b-0d8959468950 data4
 
 sudo mount /dev/mapper/data /mnt/data
 sudo mount /dev/mapper/data2 /mnt/data2
 sudo mount /dev/mapper/data3 /mnt/data3
+sudo mount /dev/mapper/data4 /mnt/data4

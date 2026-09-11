@@ -3,7 +3,9 @@
 sudo umount /mnt/data
 sudo umount /mnt/data2
 sudo umount /mnt/data3
+sudo umount /mnt/data4
 
 sudo cryptsetup close data
 sudo cryptsetup close data2
 sudo cryptsetup close data3
+sudo cryptsetup close data4
