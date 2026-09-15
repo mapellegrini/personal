@@ -4,11 +4,23 @@
 #/mnt/backup
 if mountpoint -q /mnt/data && mountpoint -q /mnt/backup; then
     echo "Archiving /mnt/data"
-    mkdir -p /mnt/data /mnt/backup/daily
+    mkdir -p /mnt/backup/daily
     date >> /mnt/backup/daily/cronlog.daily
-    rsync --archive --delete /mnt/data /mnt/backup/daily &>> /mnt/backup/daily/cronlog.daily
+    rsync --archive --delete /mnt/data /mnt/backup/daily >> /mnt/backup/cronlog.daily 2>&1
+    rc=$?
+    if [ "$rc" -eq 0 ]; then
+        echo "SUCCESS: /mnt/data backup completed" >> /mnt/backup/cronlog.daily
+    else
+        echo "ERROR: /mnt/data backup failed (rsync exit code $rc)" >> /mnt/backup/cronlog.daily
+    fi
     echo "Archiving configuration files"
-    rsync --archive --delete /etc /mnt/backup/daily &>> /mnt/backup/daily/cronlog.daily
+    rsync --archive --delete /etc /mnt/backup/daily >> /mnt/backup/cronlog.daily 2>&1
+    rc=$?
+    if [ "$rc" -eq 0 ]; then
+        echo "SUCCESS: /etc backup completed" >> /mnt/backup/cronlog.daily
+    else
+        echo "ERROR: /etc backup failed (rsync exit code $rc)" >> /mnt/backup/cronlog.daily
+    fi
 else
     echo "/mnt/data is not mounted or /mnt/backup is not mounted"
 fi
@@ -18,7 +30,13 @@ if mountpoint -q /mnt/data2 && mountpoint -q /mnt/backup2; then
     echo "Archiving /mnt/data2"
     mkdir -p /mnt/backup2/daily
     date >> /mnt/backup2/daily/cronlog.daily
-    rsync --archive --delete /mnt/data2 /mnt/backup2/daily &>> /mnt/backup2/daily/cronlog.daily
+    rsync --archive --delete /mnt/data2 /mnt/backup2/daily >> /mnt/backup2/cronlog.daily 2>&1
+    rc=$?
+    if [ "$rc" -eq 0 ]; then
+        echo "SUCCESS: /mnt/data2 backup completed" >> /mnt/backup2/cronlog.daily
+    else
+        echo "ERROR: /mnt/data2 backup failed (rsync exit code $rc)" >> /mnt/backup2/cronlog.daily
+    fi
 else
     echo "/mnt/data2 is not mounted or /mnt/backup2 is not mounted"
 fi
@@ -28,7 +46,13 @@ if mountpoint -q /mnt/data3 && mountpoint -q /mnt/backup3; then
     echo "Archiving /mnt/data3"
     mkdir -p /mnt/backup3/daily
     date >> /mnt/backup3/daily/cronlog.daily
-    rsync --archive --delete /mnt/data3 /mnt/backup3/daily &>> /mnt/backup3/daily/cronlog.daily
+    rsync --archive --delete /mnt/data3 /mnt/backup3/daily >> /mnt/backup3/cronlog.daily 2>&1
+    rc=$?
+    if [ "$rc" -eq 0 ]; then
+        echo "SUCCESS: /mnt/data3 backup completed" >> /mnt/backup3/cronlog.daily
+    else
+        echo "ERROR: /mnt/data3 backup failed (rsync exit code $rc)" >> /mnt/backup3/cronlog.daily
+    fi
 else
     echo "/mnt/data3 is not mounted or /mnt/backup3 is not mounted"
 fi
@@ -38,7 +62,14 @@ if mountpoint -q /mnt/data4 && mountpoint -q /mnt/backup4; then
     echo "Archiving /mnt/data4"
     mkdir -p /mnt/backup4/daily
     date >> /mnt/backup4/daily/cronlog.daily
-    rsync --archive --delete /mnt/data4 /mnt/backup4/daily &>> /mnt/backup4/daily/cronlog.daily
+    #rsync --archive --delete /mnt/data4 /mnt/backup4/daily &>> /mnt/backup4/daily/cronlog.daily
+    rsync --archive --delete /mnt/data4 /mnt/backup4/daily >> /mnt/backup4/cronlog.daily 2>&1
+    rc=$?
+    if [ "$rc" -eq 0 ]; then
+        echo "SUCCESS: /mnt/data4 backup completed" >> /mnt/backup4/cronlog.daily
+    else
+        echo "ERROR: /mnt/data4 backup failed (rsync exit code $rc)" >> /mnt/backup4/cronlog.daily
+    fi
 else
     echo "/mnt/data4 is not mounted or /mnt/backup4 is not mounted"
 fi
