@@ -5,10 +5,10 @@
 if mountpoint -q /mnt/data; then
     echo "Archiving /mnt/data"
     mkdir -p /mnt/data /mnt/backup/daily
-    date >> /mnt/backup/daily/cronlog.daily
-    rsync --archive --delete /mnt/data /mnt/backup/daily &>> /mnt/backup/daily/cronlog.daily
+    date >> /mnt/backup/cronlog.daily
+    rsync --archive --delete /mnt/data /mnt/backup/daily &>> /mnt/backup/cronlog.daily
     echo "Archiving configuration files"
-    rsync --archive --delete /etc /mnt/backup/daily &>> /mnt/backup/daily/cronlog.daily
+    rsync --archive --delete /etc /mnt/backup/daily &>> /mnt/backup/cronlog.daily
 else
     echo "/mnt/data is not mounted"
 fi
@@ -17,8 +17,8 @@ fi
 if mountpoint -q /mnt/data2; then
     echo "Archiving /mnt/data2"
     mkdir -p /mnt/backup2/daily
-    date >> /mnt/backup2/daily/cronlog.daily
-    rsync --archive --delete /mnt/data2 /mnt/backup2/daily &>> /mnt/backup2/daily/cronlog.daily
+    date >> /mnt/backup2/cronlog.daily
+    rsync --archive --delete /mnt/data2 /mnt/backup2/daily &>> /mnt/backup2/cronlog.daily
 else
     echo "/mnt/data2 is not mounted"
 fi
@@ -27,8 +27,8 @@ fi
 if mountpoint -q /mnt/data3; then
     echo "Archiving /mnt/data3"
     mkdir -p /mnt/backup3/daily
-    date >> /mnt/backup3/daily/cronlog.daily
-    rsync --archive --delete /mnt/data3 /mnt/backup3/daily &>> /mnt/backup3/daily/cronlog.daily
+    date >> /mnt/backup3/cronlog.daily
+    rsync --archive --delete /mnt/data3 /mnt/backup3/daily &>> /mnt/backup3/cronlog.daily
 else
     echo "/mnt/data3 is not mounted"
 fi
@@ -37,8 +37,8 @@ fi
 if mountpoint -q /mnt/data4; then
     echo "Archiving /mnt/data4"
     mkdir -p /mnt/backup4/daily
-    date >> /mnt/backup4/daily/cronlog.daily
-    rsync --archive --delete /mnt/data4 /mnt/backup4/daily &>> /mnt/backup4/daily/cronlog.daily
+    date >> /mnt/backup4/cronlog.daily
+    rsync --archive --delete /mnt/data4 /mnt/backup4/daily &>> /mnt/backup4/cronlog.daily
 else
     echo "/mnt/data4 is not mounted"
 fi
