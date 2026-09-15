@@ -5,7 +5,7 @@
 if mountpoint -q /mnt/data && mountpoint -q /mnt/backup; then
     echo "Archiving /mnt/data"
     mkdir -p /mnt/backup/daily
-    date >> /mnt/backup/daily/cronlog.daily
+    date >> /mnt/backup/cronlog.daily
     rsync --archive --delete /mnt/data /mnt/backup/daily >> /mnt/backup/cronlog.daily 2>&1
     rc=$?
     if [ "$rc" -eq 0 ]; then
@@ -29,7 +29,7 @@ fi
 if mountpoint -q /mnt/data2 && mountpoint -q /mnt/backup2; then
     echo "Archiving /mnt/data2"
     mkdir -p /mnt/backup2/daily
-    date >> /mnt/backup2/daily/cronlog.daily
+    date >> /mnt/backup2/cronlog.daily
     rsync --archive --delete /mnt/data2 /mnt/backup2/daily >> /mnt/backup2/cronlog.daily 2>&1
     rc=$?
     if [ "$rc" -eq 0 ]; then
@@ -45,7 +45,7 @@ fi
 if mountpoint -q /mnt/data3 && mountpoint -q /mnt/backup3; then
     echo "Archiving /mnt/data3"
     mkdir -p /mnt/backup3/daily
-    date >> /mnt/backup3/daily/cronlog.daily
+    date >> /mnt/backup3/cronlog.daily
     rsync --archive --delete /mnt/data3 /mnt/backup3/daily >> /mnt/backup3/cronlog.daily 2>&1
     rc=$?
     if [ "$rc" -eq 0 ]; then
@@ -61,8 +61,7 @@ fi
 if mountpoint -q /mnt/data4 && mountpoint -q /mnt/backup4; then
     echo "Archiving /mnt/data4"
     mkdir -p /mnt/backup4/daily
-    date >> /mnt/backup4/daily/cronlog.daily
-    #rsync --archive --delete /mnt/data4 /mnt/backup4/daily &>> /mnt/backup4/daily/cronlog.daily
+    date >> /mnt/backup4/cronlog.daily
     rsync --archive --delete /mnt/data4 /mnt/backup4/daily >> /mnt/backup4/cronlog.daily 2>&1
     rc=$?
     if [ "$rc" -eq 0 ]; then
