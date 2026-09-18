@@ -1,0 +1,20 @@
+#!/bin/bash
+
+start_time=$(date +%s)
+
+#data
+if mountpoint -q /mnt/data; then
+    echo "/mnt/data/"
+    rsync -aHAXxv --delete --partial --info=progress2 -e "ssh -o Compression=no" mark@geordi:/mnt/data/ /mnt/data/
+else
+    echo "/mnt/data is not mounted"
+fi
+
+
+#onetime
+echo "/mnt/backup/ontime"
+rsync -aHAXxv --delete --partial --info=progress2 -e "ssh -o Compression=no" mark@geordi:/mnt/backup/onetime/ /onetime
+
+
+elapsed=$(( $(date +%s) - start_time ))
+echo "Time to backup: ${elapsed} seconds"

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo cryptsetup open /dev/disk/by-uuid/7ed6997a-c5e5-4024-9723-2190bbd3b362 data
+sudo mount /dev/mapper/data /mnt/data

@@ -1,0 +1,4 @@
+# Pluggable devices are handled by uDev, they are not in fstab
+UUID=5ee73036-f9f4-4599-a187-4ca59e63c38f / ext4 noatime 1 1
+/swap/swap swap swap defaults 0 0
+/dev/mapper/data /mnt/data ext4 noauto,rw,exec,user,async,nofail 0 2
