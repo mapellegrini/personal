@@ -1,0 +1,12 @@
+# <target name>	<source device>		<key file>	<options>
+
+
+data /dev/disk/by-uuid/6a1c2e1a-c98f-43db-8ee0-05f1a54f0842 none noauto,nofail
+data2 /dev/disk/by-uuid/41c75198-029f-4ab0-9a9e-e0aed109ff10 none noauto,nofail
+data3 /dev/disk/by-uuid/b6ed5541-e564-40d1-a965-c10de7cb2b5a none noauto,nofail
+data4 /dev/disk/by-uuid/e7e5f1ba-84a2-42d9-87e8-eadb6c14b878 none noauto,nofail
+
+backup /dev/disk/by-uuid/d2911807-4ccd-4393-8b01-1636b6e1d754 none noauto,nofail
+backup2 /dev/disk/by-uuid/097ad148-4c18-471e-931a-e82d4815f882 none noauto,nofail
+backup3 /dev/disk/by-uuid/a0a1154b-5cad-4ff1-aed5-62978400b4f2 none noauto,nofail
+backup4 /dev/disk/by-uuid/b68222dc-9d4a-4dfa-9a59-a08571abf05a none noauto,nofail

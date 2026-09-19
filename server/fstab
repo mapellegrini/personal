@@ -7,18 +7,18 @@
 # <file system> <mount point>   <type>  <options>       <dump>  <pass>
 
 
-# /
+# / 
 /dev/disk/by-uuid/dfdcbc73-483f-4d9c-97be-30c567e39aef / ext4 defaults 0 1
 
-/dev/mapper/data /mnt/data ext4 noauto,rw,exec,user,async,nofail,exec 0 2
-/dev/mapper/data2 /mnt/data2 ext4  noauto,rw,exec,user,async,nofail,exec 0 2
-/dev/mapper/data3 /mnt/data3 ext4  noauto,rw,exec,user,async,nofail,exec 0 2
-/dev/mapper/data4 /mnt/data4 ext4  noauto,rw,exec,user,async,nofail,exec 0 2
+/dev/mapper/data /mnt/data auto noauto,rw,exec,user,async,nofail 0 2
+/dev/mapper/data2 /mnt/data2 auto noauto,rw,exec,user,async,nofail 0 2
+/dev/mapper/data3 /mnt/data3 auto noauto,rw,exec,user,async,nofail 0 2
+/dev/mapper/data4 /mnt/data4 auto noauto,rw,exec,user,async,nofail 0 2
 
-/dev/mapper/backup /mnt/backup auto noauto,rw,exec,user,async,nofail,exec 0 2
-/dev/mapper/backup2 /mnt/backup2 auto noauto,rw,exec,user,async,nofail,exec 0 2
-/dev/mapper/backup3 /mnt/backup3 auto noauto,rw,exec,user,async,nofail,exec 0 2
-/dev/mapper/backup4 /mnt/backup4 auto noauto,rw,exec,user,async,nofail,exec 0 2
+/dev/mapper/backup /mnt/backup auto noauto,rw,exec,user,async,nofail 0 2
+/dev/mapper/backup2 /mnt/backup2 auto noauto,rw,exec,user,async,nofail 0 2
+/dev/mapper/backup3 /mnt/backup3 auto noauto,rw,exec,user,async,nofail 0 2
+/dev/mapper/backup4 /mnt/backup4 auto noauto,rw,exec,user,async,nofail 0 2
 
 
 # /boot/efi was on /dev/sda1 during curtin installation
