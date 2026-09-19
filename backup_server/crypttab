@@ -1,0 +1,7 @@
+# <target name>	<source device>		<key file>	<options>
+
+
+data /dev/disk/by-uuid/49eb6f62-bab6-4883-a692-bc68979f018c none noauto,nofail
+data2 /dev/disk/by-uuid/4a6ab308-cd99-4ace-ab3e-0117b13d96f6 none noauto,nofail
+data3 /dev/disk/by-uuid/b25faaaa-ef53-4ccd-9ddb-30cdccdfddb8 none noauto,nofail
+data4 /dev/disk/by-uuid/e70af95c-c1a9-4b0c-878b-0d8959468950 none noauto,nofail
