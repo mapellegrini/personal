@@ -5,7 +5,7 @@ start_time=$(date +%s)
 #data
 if mountpoint -q /mnt/data; then
     echo "/mnt/data/"
-    rsync -aHAXxv --delete --partial --info=progress2 -e "ssh -o Compression=no" mark@geordi:/mnt/data/ /mnt/data/
+    rsync -aHAXxv --delete --partial --info=progress2 --exclude='lost+found/' -e "ssh -o Compression=no" mark@geordi:/mnt/data/ /mnt/data/
 else
     echo "/mnt/data is not mounted"
 fi
