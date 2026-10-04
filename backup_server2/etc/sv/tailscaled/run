@@ -1,0 +1,6 @@
+#!/bin/sh
+exec 2>&1
+
+/usr/sbin/ntpwait -n 60 -s 2
+
+exec /usr/sbin/tailscaled --state=/var/lib/tailscale/tailscaled.state
